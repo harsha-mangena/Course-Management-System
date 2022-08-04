@@ -1,0 +1,26 @@
+server:
+  port: 7878
+
+spring:
+  application:
+    name: COURSE-SERVICE
+
+  h2:
+    console:
+      enabled: true
+      path: /database
+
+  datasource:
+    url: jdbc:h2:mem:CourseDB
+    username: admin
+    password: admin
+    driverClassName: org.h2.Driver
+
+eureka:
+  client:
+    register-with-eureka : true
+    fetch-registry : true
+    service-url :
+      defaultZone : http://localhost:8761/eureka/
+  instance:
+    hostname : localhost
