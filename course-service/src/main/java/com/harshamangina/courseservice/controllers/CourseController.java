@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.harshamangina.courseservice.entity.Course;
+import com.harshamangina.courseservice.exception.CourseNotFoundException;
 import com.harshamangina.courseservice.services.CourseService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/v1/course")
+@Slf4j
 public class CourseController {
     
     @Autowired
@@ -25,6 +29,7 @@ public class CourseController {
     */
     @PostMapping("/add")
     public void addNewCOurse(@RequestBody Course newCourse){
+        log.info("Inside Controller : Adding new Course");
         courseServcie.addNewCourse(newCourse);
     }
 
@@ -34,7 +39,14 @@ public class CourseController {
      */
     @GetMapping("/{courseId}")
     public Course getCourseById(@PathVariable("courseId") int id){
-        return courseServcie.getCourseByCourseId(id);
+        log.info("Inside Controller : Fetching course by Id");
+        Course courseDto = courseServcie.getCourseByCourseId(id);
+
+        if(courseDto == null){
+            throw new CourseNotFoundException();
+        }
+
+        return courseDto;
     }
 
     /*
@@ -43,6 +55,7 @@ public class CourseController {
      */
     @GetMapping("/all")
     public List<Course> getAllCourses(){
+        log.info("Inside Controller : Fetching all courses");
         return courseServcie.getAllCourses();
     }
 
@@ -50,6 +63,7 @@ public class CourseController {
      * API : /instructor/all
      * Request Type : GET
      */
+    @Deprecated
     @GetMapping("instructor/all/{courseInstructor}")
     public List<Course> getCourseListByInstructor(@PathVariable String courseInstructor){
         return courseServcie.getAllCoursesByCourseInstructors(courseInstructor);
@@ -61,6 +75,7 @@ public class CourseController {
      */
     @GetMapping("type/all/{courseType}")
     public List<Course> getAllCoursesByCourseType(@PathVariable String courseType){
+        log.info("Inside Controller : Fetching course by course type");
         return courseServcie.getAllCoursesByCourseType(courseType);
     }
 }
