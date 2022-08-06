@@ -16,4 +16,9 @@ public class StudentException {
     public ResponseEntity<Object> studentPassedEmptyException(StudentPassedEmptyException exception){
         return new ResponseEntity<>("Please pass a valid object", HttpStatus.RESET_CONTENT);
     }
+
+    @ExceptionHandler(value = CourseNotFoundException.class)
+    public ResponseEntity<Object> CourseNotFoundException(CourseNotFoundException exception){
+        return new ResponseEntity<>("Course Not Found to delete", HttpStatus.NOT_FOUND);
+    }
 }

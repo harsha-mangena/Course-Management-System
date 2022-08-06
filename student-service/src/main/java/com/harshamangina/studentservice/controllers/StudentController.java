@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.harshamangina.studentservice.VO.Course;
+import com.harshamangina.studentservice.VO.ResponseTemplateWithCourse;
 import com.harshamangina.studentservice.entities.Student;
 import com.harshamangina.studentservice.exceptions.StudentNotFoundException;
 import com.harshamangina.studentservice.exceptions.StudentPassedEmptyException;
@@ -52,6 +54,15 @@ public class StudentController {
         return studentDto;
     }
 
+    /*
+     * API : /{studentId}/courses
+     * Request : Get
+     */
+    @GetMapping("/{studentId}/courses")
+    public ResponseTemplateWithCourse getStudentAlongWithCourses(@PathVariable Integer studentId){
+
+        return studentService.getStudentAlongWithCourses(studentId);
+    }
     /**
      * API : /all
      * Request : Get
@@ -77,6 +88,11 @@ public class StudentController {
     @DeleteMapping("/delete/{studentId}")
     public void deleteStudent(Integer studentId){
         studentService.deleteStudent(studentId);
+    }
+
+    @GetMapping("/courses/all")
+    public List<Course> getAllCourses(){
+        return studentService.getAllAvailableCourses();
     }
 
     /**
