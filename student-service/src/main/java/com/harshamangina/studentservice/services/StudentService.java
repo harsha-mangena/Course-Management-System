@@ -20,4 +20,24 @@ public interface StudentService {
      */
     public List<Student> getAllStudents();
 
+    /**
+     * Method : Update Student
+     */
+    public Student updateStudent(Integer studentId, Student student);
+
+    /**
+     * Method : Delete Student by Id
+     */
+    public void deleteStudent(Integer studentId);
+
+    /**
+     * Method : Adding new course to student
+     */
+    public void registerCourseToStudent(Integer studentId, Integer courseId);
+
+    /**
+     * Method : Removing student from course.
+     */
+    public void removeCourseFromStudent(Integer studentId, Integer courseId);
+
 }
