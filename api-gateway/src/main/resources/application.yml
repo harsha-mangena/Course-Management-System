@@ -1,0 +1,54 @@
+server:
+  port: 8181
+
+spring:
+  application:
+    name: CMS
+
+cloud:
+  gateway:
+    routes:
+
+      - id : STUDENT-SERVICE
+        url : lb://STUDENT-SERVICE
+        predicates:
+          - Path =  v1/student/**
+        filters:
+          - name: CircuitBreaker
+            args:
+              name:  STUDENT-SERVICE
+              fallbackuri: forward:/courseServcieFallback
+
+      - id : COURSE-SERVICE
+        url : lb://COURSE-SERVICE
+        predicates:
+          - Path =  v1/course/** 
+        filters:
+          - name: CircuitBreaker
+            args:
+              name:  COURSE-SERVICE
+              fallbackuri: forward:/studentServiceFallback
+
+
+hystrix:
+  command:
+    fallback:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+ 
+eureka:
+  client:
+    register-with-eureka : true
+    fetch-registry : true
+    service-url :
+      defaultZone : http://localhost:8761/eureka/
+  instance:
+    hostname : localhost
