@@ -4,8 +4,7 @@
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.1.6-brightgreen)
 ![Spring Cloud](https://img.shields.io/badge/Spring_Cloud-2022.0.4-important)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange)
-![Docker](https://img.shields.io/badge/Docker-24.0.5-9cf)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-%E2%98%85-white)
+
 
 **An enterprise-grade microservices system for university course management with distributed architecture**
 
